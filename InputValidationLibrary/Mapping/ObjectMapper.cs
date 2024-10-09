@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using InputValidationLibrary.Attributes;
+using ConsoleBase.Common.Attributes;
 
 namespace InputValidationLibrary.Mapping
 {

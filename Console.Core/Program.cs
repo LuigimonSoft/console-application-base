@@ -1,4 +1,5 @@
-﻿namespace Console.Core
+﻿
+namespace ConsoleBase.Core
 {
     internal class Program
     {

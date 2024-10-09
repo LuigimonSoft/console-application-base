@@ -5,5 +5,5 @@ namespace InputValidationLibrary.Validation.Interfaces
     {
         ValidationResult Validate(T entity);
     }
-}
+} 
 

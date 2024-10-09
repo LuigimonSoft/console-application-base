@@ -1,5 +1,5 @@
 ﻿using System;
-using InputValidationLibrary.Validation;
+using InputValidationLibrary.Validation.Interfaces;
 
 namespace InputValidationLibrary.Validation.Validators
 {
@@ -7,7 +7,6 @@ namespace InputValidationLibrary.Validation.Validators
     {
         private readonly AbstractValidator<T> _validator;
         private readonly Func<T, TProperty> _property;
-        private Func<T, ValidationResult> _currentRule;
 
         public RuleBuilder(AbstractValidator<T> validator, Func<T, TProperty> property)
         {
@@ -17,75 +16,25 @@ namespace InputValidationLibrary.Validation.Validators
 
         public RuleBuilder<T, TProperty> NotNull()
         {
-            _currentRule = instance =>
-            {
-                var value = _property(instance);
-                var result = new ValidationResult();
-                if (value == null)
-                {
-                    result.AddError("The value cannot be null.");
-                }
-                return result;
-            };
-            _validator._rules.Add(_currentRule);
+            var rule = new NotNullValidationRule<T, TProperty>(_property);
+            _validator.AddRule(rule);
             return this;
         }
 
-        public RuleBuilder<T, TProperty> NotEmpty()
+        public RuleBuilder<T, TProperty> InRange(TProperty min, TProperty max)
         {
-            _currentRule = instance =>
-            {
-                var value = _property(instance) as string;
-                var result = new ValidationResult();
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    result.AddError("The value cannot be empty.");
-                }
-                return result;
-            };
-            _validator._rules.Add(_currentRule);
-            return this;
-        }
-
-        public RuleBuilder<T, TProperty> InRange<TValue>(TValue min, TValue max) where TValue : IComparable
-        {
-            _currentRule = instance =>
-            {
-                var value = _property(instance);
-                var result = new ValidationResult();
-
-                if (value is IComparable comparableValue)
-                {
-                    if (comparableValue.CompareTo(min) < 0 || comparableValue.CompareTo(max) > 0)
-                    {
-                        result.AddError($"The value must be between {min} and {max}.");
-                    }
-                }
-                else
-                {
-                    result.AddError("The value must be a numeric type.");
-                }
-
-                return result;
-            };
-            _validator._rules.Add(_currentRule);
+            var rule = new RangeValidationRule<T, TProperty>(_property, min, max);
+            _validator.AddRule(rule);
             return this;
         }
 
         public RuleBuilder<T, TProperty> WithErrorCode(int errorCode)
         {
-            var lastRule = _validator._rules[_validator._rules.Count - 1];
-            _validator._rules[_validator._rules.Count - 1] = instance =>
-            {
-                var result = lastRule.Invoke(instance);
-                if (!result.IsValid)
-                {
-                    result.Errors[0] = $"{result.Errors[0]} (Error Code: {errorCode})";
-                }
-                return result;
-            };
+            var lastRule = _validator.GetLastRule();
+            lastRule.ErrorCode = errorCode;
             return this;
         }
     }
 }
+
 

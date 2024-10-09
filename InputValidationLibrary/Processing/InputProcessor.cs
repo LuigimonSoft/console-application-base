@@ -1,6 +1,7 @@
 ﻿using System;
 using InputValidationLibrary.Mapping;
 using InputValidationLibrary.Validation;
+using InputValidationLibrary.Validation.ErrorMessages;
 using InputValidationLibrary.Validation.Interfaces;
 
 namespace InputValidationLibrary.Processing
@@ -9,9 +10,10 @@ namespace InputValidationLibrary.Processing
     {
         private readonly IValidator<T> _validator;
 
-        public InputProcessor(IValidator<T> validator)
+        public InputProcessor(IValidator<T> validator, Dictionary<int, string> errorMessages)
         {
             _validator = validator;
+            ErrorMessageStore.Messages = errorMessages;
         }
 
         public ValidationResult Process(string[] parameters)
@@ -19,8 +21,7 @@ namespace InputValidationLibrary.Processing
             try
             {
                 T model = ObjectMapper.MapFromParameters<T>(parameters);
-                ValidationResult validationResult = _validator.Validate(model);
-                return validationResult;
+                return _validator.Validate(model);
             }
             catch (Exception ex)
             {
@@ -31,4 +32,5 @@ namespace InputValidationLibrary.Processing
         }
     }
 }
+
 

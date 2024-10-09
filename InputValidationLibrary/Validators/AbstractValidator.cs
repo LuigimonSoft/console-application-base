@@ -6,7 +6,7 @@ namespace InputValidationLibrary.Validation.Validators
 {
     public abstract class AbstractValidator<T> : IValidator<T>
     {
-        protected readonly List<Func<T, ValidationResult>> _rules = new List<Func<T, ValidationResult>>();
+        protected readonly List<IValidationRule<T>> _rules = new List<IValidationRule<T>>();
 
         public ValidationResult Validate(T instance)
         {
@@ -14,12 +14,7 @@ namespace InputValidationLibrary.Validation.Validators
 
             foreach (var rule in _rules)
             {
-                var ruleResult = rule.Invoke(instance);
-                if (!ruleResult.IsValid)
-                {
-                    result.IsValid = false;
-                    result.Errors.AddRange(ruleResult.Errors);
-                }
+                rule.Validate(instance, result);
             }
 
             return result;
@@ -29,6 +24,19 @@ namespace InputValidationLibrary.Validation.Validators
         {
             return new RuleBuilder<T, TProperty>(this, property);
         }
+
+        public void AddRule(IValidationRule<T> rule)
+        {
+            _rules.Add(rule);
+        }
+
+        public IValidationRule<T> GetLastRule()
+        {
+            if (_rules.Count == 0)
+            {
+                throw new InvalidOperationException("No rules have been added yet.");
+            }
+            return _rules[^1];
+        }
     }
 }
-
