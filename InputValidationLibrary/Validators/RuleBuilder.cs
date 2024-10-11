@@ -28,6 +28,33 @@ namespace InputValidationLibrary.Validation.Validators
             return this;
         }
 
+        public RuleBuilder<T, TProperty> IsDecimal()
+        {
+            var rule = new IsDecimalValidationRule<T, TProperty>(_property as Func<T, object>);
+            _validator.AddRule(rule);
+            return this;
+        }
+
+        public RuleBuilder<T, TProperty> Length(int minLength, int maxLength)
+        {
+            if (_property is Func<T, string> stringProperty)
+            {
+                var rule = new LengthValidationRule<T>(stringProperty, minLength, maxLength);
+                _validator.AddRule(rule);
+            }
+            else
+            {
+                throw new InvalidOperationException("Length validation can only be applied to string properties.");
+            }
+        }
+
+        public RuleBuilder<T, TProperty> IsNumeric()
+        {
+            var rule = new IsNumericValidationRule<T, TProperty>(_property as Func<T, object>);
+            _validator.AddRule(rule);
+            return this;
+        }
+
         public RuleBuilder<T, TProperty> WithErrorCode(int errorCode)
         {
             var lastRule = _validator.GetLastRule();
