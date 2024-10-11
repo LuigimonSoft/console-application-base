@@ -1,17 +1,17 @@
 using System;
-using InputValidationLibrary.Validation.interfaces;
+using InputValidationLibrary.Validation.Interfaces;
 using InputValidationLibrary.Validation.ErrorMessages;
 
 namespace InputValidationLibrary.Validation.Validators
 {
   public class LengthValidationRule<T> : IValidationRule<T>
   {
-    private readonly Func<T, object> _property;
+    private readonly Func<T, string> _property;
     private readonly int _minLength;
     private readonly int _maxLength;
     public int? ErrorCode { get; set; }
 
-    public LengthValidationRule(Func<T, object> property, int minLength, int maxLength)
+    public LengthValidationRule(Func<T, string> property, int minLength, int maxLength)
     {
       _property = property;
       _minLength = minLength;

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleBase.Core", "Console
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InputValidationLibrary", "InputValidationLibrary\InputValidationLibrary.csproj", "{F79C5808-6070-4743-A963-A2BC9ED16505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleBase.Common", "Console.Common\ConsoleBase.Common.csproj", "{834E8E2F-4C16-4C24-A4DC-47FA107B2486}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleBase.Common", "Console.Common\ConsoleBase.Common.csproj", "{834E8E2F-4C16-4C24-A4DC-47FA107B2486}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InputValidationLibrary.Tests", "InputValidationLibrary.Tests\InputValidationLibrary.Tests.csproj", "{F8BA2CF3-02C8-4E86-856E-7DACB2A3F263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{834E8E2F-4C16-4C24-A4DC-47FA107B2486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{834E8E2F-4C16-4C24-A4DC-47FA107B2486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{834E8E2F-4C16-4C24-A4DC-47FA107B2486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BA2CF3-02C8-4E86-856E-7DACB2A3F263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BA2CF3-02C8-4E86-856E-7DACB2A3F263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BA2CF3-02C8-4E86-856E-7DACB2A3F263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BA2CF3-02C8-4E86-856E-7DACB2A3F263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

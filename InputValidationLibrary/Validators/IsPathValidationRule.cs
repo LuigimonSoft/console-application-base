@@ -1,16 +1,16 @@
 using System;
 using System.IO;
-using InputValidationLibrary.Validation.interfaces;
+using InputValidationLibrary.Validation.Interfaces;
 using InputValidationLibrary.Validation.ErrorMessages;
 
 namespace InputValidationLibrary.Validation.Validators
 {
   public class IsPathValidationRule<T> : IValidationRule<T>
   {
-    private readonly Func<T, object> _property;
+    private readonly Func<T, string> _property;
     public int? ErrorCode { get; set; }
 
-    public IsPathValidationRule(Func<T, object> property)
+    public IsPathValidationRule(Func<T, string> property)
     {
       _property = property;
     }

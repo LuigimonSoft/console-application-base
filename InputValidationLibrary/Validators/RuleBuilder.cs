@@ -30,7 +30,7 @@ namespace InputValidationLibrary.Validation.Validators
 
         public RuleBuilder<T, TProperty> IsDecimal()
         {
-            var rule = new IsDecimalValidationRule<T, TProperty>(_property as Func<T, object>);
+            var rule = new IsDecimalValidationRule<T>(_property as Func<T, object>);
             _validator.AddRule(rule);
             return this;
         }
@@ -46,11 +46,12 @@ namespace InputValidationLibrary.Validation.Validators
             {
                 throw new InvalidOperationException("Length validation can only be applied to string properties.");
             }
+            return this;
         }
 
         public RuleBuilder<T, TProperty> IsNumeric()
         {
-            var rule = new IsNumericValidationRule<T, TProperty>(_property as Func<T, object>);
+            var rule = new IsNumericValidationRule<T>(_property as Func<T, object>);
             _validator.AddRule(rule);
             return this;
         }

@@ -1,5 +1,5 @@
 using System;
-using InputValidationLibrary.Validation.interfaces;
+using InputValidationLibrary.Validation.Interfaces;
 using InputValidationLibrary.Validation.ErrorMessages;
 
 namespace InputValidationLibrary.Validation.Validators
