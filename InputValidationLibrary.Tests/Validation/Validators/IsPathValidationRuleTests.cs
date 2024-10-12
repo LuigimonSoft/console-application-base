@@ -44,7 +44,12 @@ namespace InputValidationLibrary.Tests.Validation.Validators
         public void Validate_WhenPathIsValidRelativePath_ShouldPass()
         {
             // Arrange
-            var testObject = new TestObject { PathValue = @"..\Valid\Relative\Path" };
+            var testObject = new TestObject(); 
+            #if WINDOWS
+            testObject.PathValue = @"..\Valid\Relative\Path";
+            #else
+            testObject.PathValue = @"..\Valid\Relative\Path";
+            #endif
             var result = new ValidationResult();
 
             // Act
@@ -58,7 +63,11 @@ namespace InputValidationLibrary.Tests.Validation.Validators
         public void Validate_WhenPathIsInvalid_ShouldFail()
         {
             // Arrange
-            var testObject = new TestObject { PathValue = @"C:\Invalid|Path\To\File.txt" }; // Contains invalid character '|'
+            var testObject = new TestObject(); 
+            #if WINDOWS
+            testObject.PathValue = @"C:\Invalid|Path\To\File.txt";
+            #else
+            testObject.PathValue = @"C:/Invalid|Path/To/File.txt"
             var result = new ValidationResult();
 
             // Act
