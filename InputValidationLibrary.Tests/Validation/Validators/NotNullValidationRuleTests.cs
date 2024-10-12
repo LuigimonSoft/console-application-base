@@ -1,41 +1,72 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using InputValidationLibrary.Validation.Validators;
 using InputValidationLibrary.Validation;
+using InputValidationLibrary.Validation.Validators;
 using System.Collections.Generic;
 
 namespace InputValidationLibrary.Tests.Validation.Validators
 {
-  [TestClass]
-  public class NotNullValidationRuleTests
-  {
-    private NotNullValidationRule<TestObject, string> _rule;
-    private Dictionary<int, string> _errorMessages;
-
-    [TestInitialize]
-    public void Setup()
+    [TestClass]
+    public class NotNullValidationRuleTests
     {
-      _rule = new NotNullValidationRule<TestObject, string>(x => x.Value);
-      _errorMessages = new Dictionary<int, string> {{1001, "Value cannot be null."}};
-      _rule.ErrorCode = 1001;
+        private NotNullValidationRule<TestObject, string> _rule;
+        private Dictionary<int, string> _errorMessages;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _rule = new NotNullValidationRule<TestObject, string>(x => x.Value);
+            _errorMessages = new Dictionary<int, string> { { 1001, "Value cannot be null." } };
+            _rule.ErrorCode = 1001;
+        }
+
+        [TestMethod]
+        public void Validate_WhenValueIsNotNull_ShouldPass()
+        {
+            // Arrange
+            var testObject = new TestObject { Value = "Valid Value" };
+            var result = new ValidationResult();
+
+            // Act
+            _rule.Validate(testObject, result, _errorMessages);
+
+            // Assert
+            Assert.IsTrue(result.IsValid);
+        }
+
+        [TestMethod]
+        public void Validate_WhenValueIsNull_ShouldFail()
+        {
+            // Arrange
+            var testObject = new TestObject { Value = null };
+            var result = new ValidationResult();
+
+            // Act
+            _rule.Validate(testObject, result, _errorMessages);
+
+            // Assert
+            Assert.IsFalse(result.IsValid);
+            Assert.AreEqual("Value cannot be null.", result.Errors[0]);
+        }
+
+        [TestMethod]
+        public void Validate_WhenErrorCodeDoesNotExist_ShouldUseDefaultMessage()
+        {
+            // Arrange
+            var testObject = new TestObject { Value = null };
+            var result = new ValidationResult();
+            _rule.ErrorCode = 9999; // Code that doesn't exist in the dictionary
+
+            // Act
+            _rule.Validate(testObject, result, _errorMessages);
+
+            // Assert
+            Assert.IsFalse(result.IsValid);
+            Assert.AreEqual("The value cannot be null.", result.Errors[0]);
+        }
+
+        private class TestObject
+        {
+            public string Value { get; set; }
+        }
     }
-
-    [TestMethod]
-    public void Validate_WhenValueIsNotNull_ShouldPass()
-    {
-      // Arrange
-      var testObject = new TestObject {Value = "test"};
-      var result = new ValidationResult();
-
-      // Act
-      _rule.Validate(testObject, _errorMessages);
-
-      // Assert
-      Assert.IsTrue(result.IsValid);
-    }
-
-    private class TestObject
-    {
-      public string Value { get; set; }
-    }
-  } 
 }
