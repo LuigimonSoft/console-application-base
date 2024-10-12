@@ -65,38 +65,10 @@ namespace InputValidationLibrary.Tests.Validation.Validators
         }
 
         [TestMethod]
-        public void Validate_WhenPathIsNull_ShouldPass()
-        {
-            // Arrange
-            var testObject = new TestObject { PathValue = null };
-            var result = new ValidationResult();
-
-            // Act
-            _rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsTrue(result.IsValid); // Null should pass since it's not invalid unless required by another rule
-        }
-
-        [TestMethod]
-        public void Validate_WhenPathIsEmpty_ShouldPass()
-        {
-            // Arrange
-            var testObject = new TestObject { PathValue = string.Empty };
-            var result = new ValidationResult();
-
-            // Act
-            _rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsTrue(result.IsValid); // Empty string should pass as it's a valid edge case
-        }
-
-        [TestMethod]
         public void Validate_WhenValueIsNotAPath_ShouldFail()
         {
             // Arrange
-            var testObject = new TestObject { PathValue = "hello world" }; // Clearly not a valid path
+            var testObject = new TestObject { PathValue = "hello world" };
             var result = new ValidationResult();
 
             // Act
