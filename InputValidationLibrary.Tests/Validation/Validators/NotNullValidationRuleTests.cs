@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using InputValidationLibrary.Validation.Validators;
 using InputValidationLibrary.Validation;
-using Syste.Collections.Generic;
+using System.Collections.Generic;
 
 namespace InputValidationLibrary.Tests.Validation.Validators
 {
@@ -32,10 +32,10 @@ namespace InputValidationLibrary.Tests.Validation.Validators
       // Assert
       Assert.IsTrue(result.IsValid);
     }
-  }
 
-  private class TestObject
-  {
-    public string Value { get; set; }
-  }
+    private class TestObject
+    {
+      public string Value { get; set; }
+    }
+  } 
 }
