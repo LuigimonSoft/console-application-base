@@ -29,7 +29,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             var result = new ValidationResult();
 
             // Act
-            _rule.Validate(testObject, result, _errorMessages);
+            _rule.Validate(testObject, result);
 
             // Assert
             Assert.IsTrue(result.IsValid);
@@ -58,7 +58,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             var result = new ValidationResult();
 
             // Act
-            _rule.Validate(testObject, result, _errorMessages);
+            _rule.Validate(testObject, result);
 
             // Assert
             Assert.IsTrue(result.IsValid); // Null value should pass for IsNumeric rule
