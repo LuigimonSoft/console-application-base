@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using InputValidationLibrary.Validation;
 using InputValidationLibrary.Validation.Validators;
+using InputValidationLibrary.Validation.ErrorMessages;
 using System.Collections.Generic;
 
 namespace InputValidationLibrary.Tests.Validation.Validators
@@ -16,6 +17,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
         {
             _rule = new NotNullValidationRule<TestObject, string>(x => x.Value);
             _errorMessages = new Dictionary<int, string> { { 1001, "Value cannot be null." } };
+            ErrorMessageStore.Messages = _errorMessages;
             _rule.ErrorCode = 1001;
         }
 
