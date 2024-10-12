@@ -43,7 +43,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             var result = new ValidationResult();
 
             // Act
-            _rule.Validate(testObject, result, _errorMessages);
+            _rule.Validate(testObject, result);
 
             // Assert
             Assert.IsFalse(result.IsValid);
