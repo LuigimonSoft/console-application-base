@@ -27,7 +27,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             var result = new ValidationResult();
 
             // Act
-            _rule.Validate(testObject, result, _errorMessages);
+            _rule.Validate(testObject, result);
 
             // Assert
             Assert.IsTrue(result.IsValid);
@@ -41,7 +41,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             var result = new ValidationResult();
 
             // Act
-            _rule.Validate(testObject, result, _errorMessages);
+            _rule.Validate(testObject, result);
 
             // Assert
             Assert.IsFalse(result.IsValid);
@@ -57,7 +57,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             _rule.ErrorCode = 9999; // Code that doesn't exist in the dictionary
 
             // Act
-            _rule.Validate(testObject, result, _errorMessages);
+            _rule.Validate(testObject, result);
 
             // Assert
             Assert.IsFalse(result.IsValid);
