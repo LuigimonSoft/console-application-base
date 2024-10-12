@@ -56,7 +56,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             // Arrange
             var testObject = new TestObject { Value = null };
             var result = new ValidationResult();
-            _rule.ErrorCode = 9999; // Code that doesn't exist in the dictionary
+            _rule.ErrorCode = 9999; 
 
             // Act
             _rule.Validate(testObject, result);
