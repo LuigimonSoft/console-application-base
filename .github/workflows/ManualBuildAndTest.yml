@@ -10,7 +10,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      Solution_Name: console-application-base.sln
+      Test_Project: InputValidationLibrary.Tests.csproj
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
