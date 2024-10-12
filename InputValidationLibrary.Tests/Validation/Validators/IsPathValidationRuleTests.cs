@@ -25,7 +25,12 @@ namespace InputValidationLibrary.Tests.Validation.Validators
         public void Validate_WhenPathIsValid_ShouldPass()
         {
             // Arrange
-            var testObject = new TestObject { PathValue = @"C:\Valid\Path\To\File.txt" };
+            var testObject = new TestObject();
+            #if WINDOWS
+            testObject.PathValue = @"c:\Valid\Path\To\File.txt";
+            #else
+            testObject.PathValue = "/Valid/Path/To/File.txt";
+            #endif
             var result = new ValidationResult();
 
             // Act
