@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using InputValidationLibrary.Validation.Interfaces;
 using InputValidationLibrary.Validation.ErrorMessages;
+using System.Runttime.InteropServices;
 
 namespace InputValidationLibrary.Validation.Validators
 {
@@ -22,8 +23,7 @@ namespace InputValidationLibrary.Validation.Validators
       {
         try
         {
-          var isValidPath = Path.IsPathRooted(value) && !Path.GetInvalidPathChars().IsAnyInvalidCharacterInPath(value);
-          if (!isValidPath)
+          if (!IsValidPath(value))
           {
             if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
             {
@@ -41,6 +41,37 @@ namespace InputValidationLibrary.Validation.Validators
           result.AddError("the value must be a valid path.");
         }
       }
+    }
+
+    private bool IsValidPath(string path)
+    {
+      try
+      {
+        if(Path.GetInvalidPathChars().IsAnyInvalidCharacterInPath(path))
+          return false;
+
+        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+          return Path.IsPathRooted(path) || IsRelativePathWindows(path);
+        else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+          return path.IsPathRooted(path) || IsRelativePathUnix(path);
+
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+
+      return false;
+    }
+
+    private bool IsRelativePathUnix(string path)
+    {
+      return path.StartsWith("..") || path.StartsWith("./") || path.StartsWith("../");
+    }
+
+    private bool IsRelativePathWindows(string path)
+    {
+      return path.StartsWith("..") || path.StartsWith(".\\") || path.StartsWith("..\\");
     }
   }
 }

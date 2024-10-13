@@ -46,9 +46,9 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             // Arrange
             var testObject = new TestObject(); 
             #if WINDOWS
-            testObject.PathValue = @"..\Valid\Relative\Path";
+            testObject.PathValue = @"..\Valid\Relative\Path\File.txt";
             #else
-            testObject.PathValue = @"../Valid/Relative/Path";
+            testObject.PathValue = @"../valid/relative/path/file.txt";
             #endif
             var result = new ValidationResult();
 
