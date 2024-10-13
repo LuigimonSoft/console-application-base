@@ -4,7 +4,7 @@ using InputValidationLibrary.Validation.ErrorMessages;
 
 namespace InputValidationLibrary.Validation.Validators
 {
-    public class NotEmptyValidationRule<T> : IValidationRule<T>
+    public class NotEmptyValidationRule<T, TProperty> : IValidationRule<T>
     {
         private readonly Func<T, string> _property;
         public int? ErrorCode { get; set; }
