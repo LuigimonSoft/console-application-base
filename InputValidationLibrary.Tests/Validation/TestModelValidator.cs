@@ -11,16 +11,17 @@ namespace InputValidationLibrary.Test.Validation
                 .NotEmpty().WithErrorCode(1002);
 
             RuleFor(x => x.Age)
-                .InRange(18, 65).WithErrorCode(1003);
+                .NotEmpty().WithErrorCode(1003)
+                .InRange(18, 65).WithErrorCode(1004);
 
             RuleFor(x => x.Salary)
-                .NotNull().WithErrorCode(1004)
-                .IsDecimal().WithErrorCode(1005);
+                .NotNull().WithErrorCode(1005)
+                .IsDecimal().WithErrorCode(1006);
 
             RuleFor(x => x.FilePath)
-                .NotNull().WithErrorCode(1006)
-                .NotEmpty().WithErrorCode(1007)
-                .IsPath().WithErrorCode(1008);
+                .NotNull().WithErrorCode(1007)
+                .NotEmpty().WithErrorCode(1008)
+                .IsPath().WithErrorCode(1009);
         }
     }
 }
