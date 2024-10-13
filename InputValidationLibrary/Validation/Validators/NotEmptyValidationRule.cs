@@ -19,7 +19,7 @@ namespace InputValidationLibrary.Validation.Validators
 
             if (string.IsNullOrWhiteSpace(value))
             {
-                if (ErrorCode.HasValue && errorMessages.TryGetValue(ErrorCode.Value, out var errorMessage))
+                if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
                 {
                     result.AddError(errorMessage);
                 }
