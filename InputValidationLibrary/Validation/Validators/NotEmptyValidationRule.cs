@@ -6,7 +6,7 @@ namespace InputValidationLibrary.Validation.Validators
 {
     public class NotEmptyValidationRule<T, TProperty> : IValidationRule<T>
     {
-        private readonly Func<T, string> _property;
+        private readonly Func<T, TProperty> _property;
         public int? ErrorCode { get; set; }
 
         public NotEmptyValidationRule(Func<T, string> property)
