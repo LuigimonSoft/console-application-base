@@ -11,7 +11,8 @@ namespace InputValidationLibrary.Test.Validation
                 .NotEmpty().WithErrorCode(1002);
 
             RuleFor(x => x.Age)
-                .NotEmpty().WithErrorCode(1003)
+                .IsNumeric().WithErrorCode(1010)
+                 .NotEmpty().WithErrorCode(1003)
                 .InRange(18, 65).WithErrorCode(1004);
 
             RuleFor(x => x.Salary)
