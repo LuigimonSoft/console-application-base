@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using InputValidationLibrary.Validation.Interfaces;
 
 namespace InputValidationLibrary.Validation.Validators
@@ -17,6 +17,13 @@ namespace InputValidationLibrary.Validation.Validators
         public RuleBuilder<T, TProperty> NotNull()
         {
             var rule = new NotNullValidationRule<T, TProperty>(_property);
+            _validator.AddRule(rule);
+            return this;
+        }
+
+        public RuleBuilder<T, TProperty> NotEmpty()
+        {
+            var rule = new NotEmptyValidationRule<T, TProperty>(_property);
             _validator.AddRule(rule);
             return this;
         }
