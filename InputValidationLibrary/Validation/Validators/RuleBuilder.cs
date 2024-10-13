@@ -23,10 +23,34 @@ namespace InputValidationLibrary.Validation.Validators
 
         public RuleBuilder<T, TProperty> NotEmpty()
         {
-            var rule = new NotEmptyValidationRule<T, TProperty>(_property);
-            _validator.AddRule(rule);
+            if (_property is Func<T, string> stringProperty)
+            {
+                var rule = new NotEmptyValidationRule<T>(stringProperty);
+                _validator.AddRule(rule);
+            }
+            else
+            {
+                throw new InvalidOperationException("NotEmpty can only be used with string properties.");
+            }
+
             return this;
         }
+
+        public RuleBuilder<T, TProperty> IsPath()
+        {
+            if (_property is Func<T, string> stringProperty)
+            {
+                var rule = new IsPathValidationRule<T>(stringProperty);
+                _validator.AddRule(rule);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsPath can only be used with string properties.");
+            }
+
+            return this;
+        }
+
 
         public RuleBuilder<T, TProperty> InRange(TProperty min, TProperty max)
         {
