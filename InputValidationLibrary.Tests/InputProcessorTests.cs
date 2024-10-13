@@ -19,12 +19,13 @@ namespace InputValidationLibrary.Tests
             {
                 { 1001, "Name must not be null." },
                 { 1002, "Name must not be empty." },
-                { 1003, "Age must be between 18 and 65." },
-                { 1004, "Salary must not be null." },
-                { 1005, "Salary must be a valid decimal." },
-                { 1006, "File path must not be null." },
-                { 1007, "File path must not be empty." },
-                { 1008, "File path must be a valid path." }
+                 { 1003, "Name must not be empty." },
+                 { 1004, "Age must be between 18 and 65." },
+                { 1005, "Salary must not be null." },
+                { 1006, "Salary must be a valid decimal." },
+                { 1007, "File path must not be null." },
+                { 1008, "File path must not be empty." },
+                { 1009, "File path must be a valid path." }
             };
 
             var validator = new TestModelValidator();
@@ -84,7 +85,7 @@ namespace InputValidationLibrary.Tests
                 new string[] { "John Doe", "17", "5000.75", @"C:\Valid\Path\To\File.txt" },
                 false,
                 "Age must be between 18 and 65.",
-                1003,
+                1004,
                 "Age below range"
             };
 
