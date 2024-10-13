@@ -53,7 +53,7 @@ namespace InputValidationLibrary.Validation.Validators
         if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
           return Path.IsPathRooted(path) || IsRelativePathWindows(path);
         else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-          return path.IsPathRooted(path) || IsRelativePathUnix(path);
+          return Path.IsPathRooted(path) || IsRelativePathUnix(path);
 
       }
       catch (Exception)
