@@ -13,7 +13,7 @@ namespace InputValidationLibrary.Validation.Validators
             _property = property;
         }
 
-        public void Validate(T entity, ValidationResult result, Dictionary<int, string> errorMessages)
+        public void Validate(T entity, ValidationResult result)
         {
             var value = _property(entity);
 
