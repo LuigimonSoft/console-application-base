@@ -9,7 +9,7 @@ namespace InputValidationLibrary.Validation.Validators
         private readonly Func<T, TProperty> _property;
         public int? ErrorCode { get; set; }
 
-        public NotEmptyValidationRule(Func<T, string> property)
+        public NotEmptyValidationRule(Func<T, TProperty> property)
         {
             _property = property;
         }
