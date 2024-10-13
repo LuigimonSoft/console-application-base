@@ -21,6 +21,7 @@ namespace InputValidationLibrary.Tests
                 { 1002, "Name must not be empty." },
                  { 1003, "Name must not be empty." },
                  { 1004, "Age must be between 18 and 65." },
+                { 1010, "Age must be numeric" },
                 { 1005, "Salary must not be null." },
                 { 1006, "Salary must be a valid decimal." },
                 { 1007, "File path must not be null." },
