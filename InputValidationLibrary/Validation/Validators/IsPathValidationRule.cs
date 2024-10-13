@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using InputValidationLibrary.Validation.Interfaces;
 using InputValidationLibrary.Validation.ErrorMessages;
-using System.Runttime.InteropServices;
+using System.Runtime.InteropServices;
 
 namespace InputValidationLibrary.Validation.Validators
 {
