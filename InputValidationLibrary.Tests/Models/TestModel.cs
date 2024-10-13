@@ -1,6 +1,6 @@
 using System;
 
-namespace InputValidationLibrary.Models
+namespace InputValidationLibrary.Test.Models
 {
     public class TestModel
     {
