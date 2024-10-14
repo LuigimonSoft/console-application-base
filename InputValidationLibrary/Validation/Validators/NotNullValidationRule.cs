@@ -21,11 +21,11 @@ namespace InputValidationLibrary.Validation.Validators
             {
                 if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
                 {
-                    result.AddError(new error() { ErrorCode.Value, erroMessage });
+                    result.AddError(new Error() { ErrorCode.Value, erroMessage });
                 }
                 else
                 {
-                    result.AddError(new error() { ErrorCode.Value, "The value cannot be null." });
+                    result.AddError(new Error() { ErrorCode.Value, "The value cannot be null." });
                 }
             }
         }
