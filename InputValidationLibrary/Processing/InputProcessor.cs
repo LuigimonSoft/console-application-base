@@ -26,7 +26,7 @@ namespace InputValidationLibrary.Processing
             catch (Exception ex)
             {
                 var result = new ValidationResult();
-                result.AddError($"Mapping error: {ex.Message}");
+                result.AddError(new Error() { ErrorCode = 0, ErrorMessage = $"Mapping error: {ex.Message}" });
                 return result;
             }
         }
