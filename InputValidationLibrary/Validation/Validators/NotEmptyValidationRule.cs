@@ -22,11 +22,11 @@ namespace InputValidationLibrary.Validation.Validators
             {
                 if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
                 {
-                    result.AddError(new Error() { ErrorCode.Value, erroMessage });
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = erroMessage });
                 }
                 else
                 {
-                    result.AddError(new Error() { ErrorCode.Value, "The value must not be empty or consist solely of whitespace." });
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = "The value must not be empty or consist solely of whitespace." });
                 }
             }
         }
