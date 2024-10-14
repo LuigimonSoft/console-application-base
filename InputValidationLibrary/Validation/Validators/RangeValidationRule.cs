@@ -28,11 +28,11 @@ namespace InputValidationLibrary.Validation.Validators
                 {
                     if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
                     {
-                        result.AddError(string.Format(errorMessage, _min, _max));
+                        result.AddError(new error() { ErrorCode.Value, string.Format(errorMessage, _min, _max) });
                     }
                     else
                     {
-                        result.AddError($"The value must be between {_min} and {_max}.");
+                        result.AddError(new error() { ErrorCode.Value, $"The value must be between {_min} and {_max}." });
                     }
                 }
             }

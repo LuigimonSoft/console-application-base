@@ -21,11 +21,11 @@ namespace InputValidationLibrary.Validation.Validators
       {
         if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
         {
-          result.AddError(erroMessage);
+          result.AddError(new error() { ErrorCode.Value, erroMessage });
         }
         else
         {
-          result.AddError("The value must be a decimal.");
+          result.AddError(new error() { ErrorCode.Value, "The value must be a decimal." });
         }
 
       }

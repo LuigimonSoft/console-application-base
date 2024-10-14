@@ -27,11 +27,11 @@ namespace InputValidationLibrary.Validation.Validators
         {
           if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
           {
-            result.AddError(string.Format(erroMessage, _minLength, _maxLength));
+            result.AddError(new error() { ErrorCode.Value, erroMessage });
           }
           else
           {
-            result.AddError($"The value length must be between {_minLength} and {_maxLength} characters.");
+            result.AddError(new error() { ErrorCode.Value, $"The value length must be between {_minLength} and {_maxLength} characters." });
           }
         }
       }

@@ -27,11 +27,11 @@ namespace InputValidationLibrary.Validation.Validators
           {
             if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
             {
-              result.AddError(erroMessage);
+              result.AddError(new error() { ErrorCode.Value, erroMessage });
             }
             else
             {
-              result.AddError("the value must be a valid path.");
+              result.AddError(new error() { ErrorCode.Value, "the value must be a valid path." });
             }
           }
 
