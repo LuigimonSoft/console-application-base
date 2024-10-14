@@ -40,7 +40,7 @@ namespace InputValidationLibrary.Tests
         public void Validate_InputProcessor_DynamicTests(string[] inputs, bool expectedIsValid, string expectedError, int? expectedErrorCode, string testName)
         {
             // Act
-            var validationResult = _inputProcessor.ProcessInput(inputs);
+            var validationResult = _inputProcessor.Process(inputs);
 
             // Assert
             Assert.AreEqual(expectedIsValid, validationResult.IsValid, $"Failed Test: {testName}");
