@@ -46,7 +46,7 @@ namespace InputValidationLibrary.Tests
             Assert.AreEqual(expectedIsValid, validationResult.IsValid, $"Failed Test: {testName}");
             if (!expectedIsValid)
             {
-                Assert.IsTrue(validationResult.Errors.Contains(expectedError), $"Failed Test: {testName} - Expected error message not found.");
+                Assert.IsTrue(validationResult.Errors.Contains(x=> x.ErrorMessage == expectedError), $"Failed Test: {testName} - Expected error message not found.");
 
                 // Assert that the error code matches the expected error code
                 var actualErrorCode = validationResult.ErrorCodes?.FirstOrDefault();

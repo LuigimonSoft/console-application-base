@@ -5,13 +5,19 @@ namespace InputValidationLibrary.Validation
     public class ValidationResult
     {
         public bool IsValid { get; private set; } = true;
-        public List<string> Errors { get; } = new List<string>();
+        public List<Error> Errors { get; } = new List<Error>();
 
-        public void AddError(string error)
+        public void AddError(Error error)
         {
             IsValid = false;
             Errors.Add(error);
         }
+    }
+
+    public class Error
+    {
+        public int ErrorCode { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }
 
