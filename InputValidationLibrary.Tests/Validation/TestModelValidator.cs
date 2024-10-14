@@ -1,4 +1,5 @@
 using InputValidationLibrary.Validation;
+using InputValidationLibrary.Tests.Models;
 
 namespace InputValidationLibrary.Tests.Validation
 {
