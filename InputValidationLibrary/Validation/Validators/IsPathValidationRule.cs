@@ -25,7 +25,7 @@ namespace InputValidationLibrary.Validation.Validators
         {
           if (!IsValidPath(value))
           {
-            if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
+            if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
             {
               result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = errorMessage });
             }
@@ -38,7 +38,7 @@ namespace InputValidationLibrary.Validation.Validators
         }
         catch (Exception)
         {
-          result.AddError("the value must be a valid path.");
+          result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = "the value must be a valid path." });
         }
       }
     }
