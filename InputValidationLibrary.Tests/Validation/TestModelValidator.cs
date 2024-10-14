@@ -1,6 +1,6 @@
 using InputValidationLibrary.Validation;
 
-namespace InputValidationLibrary.Test.Validation
+namespace InputValidationLibrary.Tests.Validation
 {
     public class TestModelValidator : Validator<TestModel>
     {

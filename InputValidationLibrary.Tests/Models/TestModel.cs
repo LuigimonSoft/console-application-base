@@ -1,7 +1,7 @@
 using System;
 using ConsoleBase.Common.Attributes;
 
-namespace InputValidationLibrary.Test.Models
+namespace InputValidationLibrary.Tests.Models
 {
     public class TestModel
     {
