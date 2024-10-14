@@ -22,7 +22,7 @@ namespace InputValidationLibrary.Validation.Validators
             {
                 if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
                 {
-                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = erroMessage });
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = errorMessage });
                 }
                 else
                 {

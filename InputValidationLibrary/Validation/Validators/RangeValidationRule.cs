@@ -38,7 +38,7 @@ namespace InputValidationLibrary.Validation.Validators
             }
             else
             {
-                result.AddError("The value must be comparable.");
+                result.AddError(ErrorCode = ErrorCode.Value, ErrorMessage = "The value must be comparable.");
             }
         }
     }
