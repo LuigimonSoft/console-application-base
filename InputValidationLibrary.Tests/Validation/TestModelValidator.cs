@@ -1,9 +1,10 @@
 using InputValidationLibrary.Validation;
 using InputValidationLibrary.Tests.Models;
+using InputValidationLibrary.Validation.Validators;
 
 namespace InputValidationLibrary.Tests.Validation
 {
-    public class TestModelValidator : Validator<TestModel>
+    public class TestModelValidator : AbstractValidator<TestModel>
     {
         public TestModelValidator()
         {
