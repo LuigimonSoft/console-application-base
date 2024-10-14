@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using InputValidationLibrary.Test.Models;
+using InputValidationLibrary.Tests.Models;
 using InputValidationLibrary.Validation;
-using InputValidationLibrary.Test.Validation;
+using InputValidationLibrary.Tests.Validation;
 using System.Collections.Generic;
 using System.Linq;
 

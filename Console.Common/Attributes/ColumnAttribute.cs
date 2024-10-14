@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleBase.Common.Attributes
+namespace Console.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ColumnAttribute : Attribute
