@@ -1,5 +1,5 @@
 using System;
-using Console.Common.Attributes;
+using ConsoleBase.Common.Attributes;
 
 namespace InputValidationLibrary.Test.Models
 {
