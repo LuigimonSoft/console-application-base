@@ -46,12 +46,14 @@ namespace InputValidationLibrary.Tests
             Assert.AreEqual(expectedIsValid, validationResult.IsValid, $"Failed Test: {testName}");
             if (!expectedIsValid)
             {
-                Assert.IsTrue(validationResult.Errors.Contains(x=> x.ErrorMessage == expectedError), $"Failed Test: {testName} - Expected error message not found.");
+                Assert.AreEqual(expectedError, validationResult.Errors[0].ErrorMessage, $"Failed Test: {testName} - Expected error message not found.");
 
                 // Assert that the error code matches the expected error code
-                var actualErrorCode = validationResult.ErrorCodes?.FirstOrDefault();
+                var actualErrorCode = validationResult.Errors[0].ErrorCode.FirstOrDefault();
                 Assert.AreEqual(expectedErrorCode, actualErrorCode, $"Failed Test: {testName} - Expected error code {expectedErrorCode}, but got {actualErrorCode}.");
             }
+            else 
+                Assert.IsTrue(validationResult.IsValid, $"Failed Test: {testName}")
         }
 
         public static IEnumerable<object[]> GetTestCases()

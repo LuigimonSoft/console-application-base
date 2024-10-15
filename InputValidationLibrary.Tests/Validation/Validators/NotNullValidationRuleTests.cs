@@ -65,7 +65,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             // Assert
             Assert.IsFalse(result.IsValid);
             Assert.AreEqual("The value cannot be null.", result.Errors[0].ErrorMessage);
-            assert.AreEqual(9999, result.Errors[0].ErrorCode);
+            Assert.AreEqual(9999, result.Errors[0].ErrorCode);
         }
 
         private class TestObject
