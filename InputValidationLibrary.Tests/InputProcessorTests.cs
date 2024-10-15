@@ -58,6 +58,7 @@ namespace InputValidationLibrary.Tests
 
         public static IEnumerable<object[]> GetTestCases()
         {
+#if WINDOWS
             yield return new object[]
             {
                 new string[] { "John Doe", "30", "5000.75", @"C:\Valid\Path\To\File.txt" }, // Inputs
@@ -66,7 +67,16 @@ namespace InputValidationLibrary.Tests
                 null, // Expected Error Code (no error)
                 "All inputs valid" // Test name
             };
-
+#else
+            yield return new object[]
+            {
+                new string[] { "John Doe", "30", "5000.75", @"/Valid/Path/To/File.txt" }, // Inputs
+                true, // Expected IsValid
+                null, // Expected Error Message (no error)
+                null, // Expected Error Code (no error)
+                "All inputs valid" // Test name
+            };
+#endif
             yield return new object[]
             {
                 new string[] { null, "30", "5000.75", @"C:\Valid\Path\To\File.txt" },
