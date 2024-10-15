@@ -49,7 +49,7 @@ namespace InputValidationLibrary.Tests
                 Assert.AreEqual(expectedError, validationResult.Errors[0].ErrorMessage, $"Failed Test: {testName} - Expected error message not found.");
 
                 // Assert that the error code matches the expected error code
-                var actualErrorCode = validationResult.Errors[0].ErrorCode.FirstOrDefault();
+                var actualErrorCode = validationResult.Errors[0].ErrorCode;
                 Assert.AreEqual(expectedErrorCode, actualErrorCode, $"Failed Test: {testName} - Expected error code {expectedErrorCode}, but got {actualErrorCode}.");
             }
             else
