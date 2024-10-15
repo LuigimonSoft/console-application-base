@@ -28,23 +28,3 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
-
-    - name: Run tests with coverage
-      run: |
-        dotnet test --configuration Debug /p:CollectCoverage=true /p:CoverletOutputFormat=json /p:CoverletOutput=./coverage/
-
-    - name: Install jq
-      run: sudo apt-get install jq
-
-    - name: Verify coverage output exists
-      run: |
-        if [ ! -f "./coverage/coverage.json" ]; then
-          echo "Coverage file not found!"
-          exit 1
-        fi
-
-    - name: Get coverage percentage
-      run: |
-        COVERAGE_PERCENTAGE=$(cat ./coverage/coverage.json | jq '.summary.line | .percent')
-        echo "Coverage Percentage: ${COVERAGE_PERCENTAGE}%"
-      shell: bash
