@@ -8,5 +8,10 @@ namespace InputValidationLibrary.Validation.ErrorMessages
         {
             
         };
+
+        public static string GetMessage(int errorCode)
+        {
+            return Messages.ContainsKey(errorCode) ? Messages[errorCode] : $"Error code {errorCode} not found.";
+        }
     }
 }

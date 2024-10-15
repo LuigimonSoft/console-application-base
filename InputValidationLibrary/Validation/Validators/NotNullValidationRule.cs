@@ -21,12 +21,24 @@ namespace InputValidationLibrary.Validation.Validators
             {
                 if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var errorMessage))
                 {
-                    result.AddError(errorMessage);
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = errorMessage });
                 }
                 else
                 {
-                    result.AddError("The value cannot be null.");
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = "The value cannot be null." });
                 }
+            }
+        }
+
+        public void ValidateValue(string value, ValidationResult result)
+        {
+            if (value == null)
+            {
+                result.AddError(new Error()
+                {
+                    ErrorCode = ErrorCode ?? 0,
+                    ErrorMessage = ErrorMessageStore.GetMessage(ErrorCode ?? 0)
+                });
             }
         }
     }
