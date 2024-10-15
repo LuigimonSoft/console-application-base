@@ -52,8 +52,8 @@ namespace InputValidationLibrary.Tests
                 var actualErrorCode = validationResult.Errors[0].ErrorCode.FirstOrDefault();
                 Assert.AreEqual(expectedErrorCode, actualErrorCode, $"Failed Test: {testName} - Expected error code {expectedErrorCode}, but got {actualErrorCode}.");
             }
-            else 
-                Assert.IsTrue(validationResult.IsValid, $"Failed Test: {testName}")
+            else
+                Assert.IsTrue(validationResult.IsValid, $"Failed Test: {testName}");
         }
 
         public static IEnumerable<object[]> GetTestCases()
