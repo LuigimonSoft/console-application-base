@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using InputValidationLibrary.Mapping;
 using InputValidationLibrary.Validation;
 using InputValidationLibrary.Validation.ErrorMessages;
 using InputValidationLibrary.Validation.Interfaces;
+using ConsoleBase.Common.Attributes;
 
 namespace InputValidationLibrary.Processing
 {
@@ -18,7 +22,7 @@ namespace InputValidationLibrary.Processing
 
         public ValidationResult Process(string[] parameters)
         {
-            // Step 1: Pre-validate the input parameters
+            // Step 1: Pre-validate the input parameters before mapping
             var preValidationResult = PreValidateInputs(parameters);
             if (!preValidationResult.IsValid)
             {
@@ -44,9 +48,8 @@ namespace InputValidationLibrary.Processing
         private ValidationResult PreValidateInputs(string[] parameters)
         {
             var validationResult = new ValidationResult();
-
             var properties = typeof(T).GetProperties();
-
+            
             foreach (var prop in properties)
             {
                 var columnAttr = prop.GetCustomAttribute<ColumnAttribute>();
@@ -66,46 +69,54 @@ namespace InputValidationLibrary.Processing
 
                 var parameterValue = parameters[position];
 
-                // Perform basic validations before mapping
-                if (prop.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(parameterValue))
+                // Extract the rules defined for the property
+                var rules = _validator.GetRulesForProperty(prop.Name);
+
+                foreach (var rule in rules)
                 {
-                    validationResult.AddError(new Error()
+                    // Apply the rule based on its type
+                    switch (rule)
                     {
-                        ErrorCode = 0,
-                        ErrorMessage = $"The value for '{prop.Name}' must not be empty or whitespace."
-                    });
-                }
-                else if (prop.PropertyType == typeof(int))
-                {
-                    if (!int.TryParse(parameterValue, out _))
-                    {
-                        validationResult.AddError(new Error()
-                        {
-                            ErrorCode = 0,
-                            ErrorMessage = $"The value for '{prop.Name}' must be a valid integer."
-                        });
+                        case NotEmptyValidationRule<T> notEmptyRule:
+                            if (string.IsNullOrWhiteSpace(parameterValue))
+                            {
+                                validationResult.AddError(new Error()
+                                {
+                                    ErrorCode = notEmptyRule.ErrorCode ?? 0,
+                                    ErrorMessage = ErrorMessageStore.GetMessage(notEmptyRule.ErrorCode ?? 0)
+                                });
+                            }
+                            break;
+                        
+                        case IsNumericValidationRule<T> isNumericRule:
+                            if (!int.TryParse(parameterValue, out _))
+                            {
+                                validationResult.AddError(new Error()
+                                {
+                                    ErrorCode = isNumericRule.ErrorCode ?? 0,
+                                    ErrorMessage = ErrorMessageStore.GetMessage(isNumericRule.ErrorCode ?? 0)
+                                });
+                            }
+                            break;
+
+                        case IsDecimalValidationRule<T> isDecimalRule:
+                            if (!decimal.TryParse(parameterValue, out _))
+                            {
+                                validationResult.AddError(new Error()
+                                {
+                                    ErrorCode = isDecimalRule.ErrorCode ?? 0,
+                                    ErrorMessage = ErrorMessageStore.GetMessage(isDecimalRule.ErrorCode ?? 0)
+                                });
+                            }
+                            break;
+
+                        // Add more cases if needed for other rules...
                     }
-                }
-                else if (prop.PropertyType == typeof(decimal))
-                {
-                    if (!decimal.TryParse(parameterValue, out _))
+
+                    // If an error has already been added for this property, break out of the loop
+                    if (!validationResult.IsValid)
                     {
-                        validationResult.AddError(new Error()
-                        {
-                            ErrorCode = 0,
-                            ErrorMessage = $"The value for '{prop.Name}' must be a valid decimal."
-                        });
-                    }
-                }
-                else if (prop.PropertyType == typeof(DateTime))
-                {
-                    if (!DateTime.TryParse(parameterValue, out _))
-                    {
-                        validationResult.AddError(new Error()
-                        {
-                            ErrorCode = 0,
-                            ErrorMessage = $"The value for '{prop.Name}' must be a valid date."
-                        });
+                        break;
                     }
                 }
             }
