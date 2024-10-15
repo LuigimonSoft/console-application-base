@@ -22,7 +22,6 @@ namespace InputValidationLibrary.Processing
 
         public ValidationResult Process(string[] parameters)
         {
-            // Step 1: Pre-validate the input parameters before mapping
             var preValidationResult = PreValidateInputs(parameters);
             if (!preValidationResult.IsValid)
             {
@@ -31,10 +30,8 @@ namespace InputValidationLibrary.Processing
 
             try
             {
-                // Step 2: Map the input parameters to the model
                 T model = ObjectMapper.MapFromParameters<T>(parameters);
 
-                // Step 3: Validate the mapped model
                 return _validator.Validate(model);
             }
             catch (Exception ex)
@@ -69,12 +66,12 @@ namespace InputValidationLibrary.Processing
 
                 var parameterValue = parameters[position];
 
-                // Extract the rules defined for the property
+                
                 var rules = (_validator as AbstractValidator<T>).GetRulesForProperty(prop.Name);
 
                 foreach (var rule in rules)
                 {
-                    // Apply the rule based on its type
+                    
                     switch (rule)
                     {
                         case NotEmptyValidationRule<T> notEmptyRule:
