@@ -19,9 +19,22 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --no-restore
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Run tests with coverage
+      run: |
+        dotnet test --configuration Debug /p:CollectCoverage=true /p:CoverletOutputFormat=json /p:CoverletOutput=./coverage/
+
+    - name: Get coverage percentage
+      run: |
+        COVERAGE_PERCENTAGE=$(cat ./coverage/coverage.json | jq '.line | .coveragePercent')
+        echo "Coverage Percentage: ${COVERAGE_PERCENTAGE}%"
+      shell: bash
