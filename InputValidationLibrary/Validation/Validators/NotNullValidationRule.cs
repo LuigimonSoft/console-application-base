@@ -29,6 +29,18 @@ namespace InputValidationLibrary.Validation.Validators
                 }
             }
         }
+
+        public void ValidateValue(string value, ValidationResult result)
+        {
+            if (value == null)
+            {
+                result.AddError(new Error()
+                {
+                    ErrorCode = ErrorCode ?? 0,
+                    ErrorMessage = ErrorMessageStore.GetMessage(ErrorCode ?? 0)
+                });
+            }
+        }
     }
 }
 

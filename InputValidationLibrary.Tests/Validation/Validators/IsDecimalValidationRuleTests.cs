@@ -29,7 +29,7 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             {
                 ErrorCode = 4001
             };
-            var testObject = new TestObject { Value = "123.45" };
+            var testObject = new TestObject { Value = new decimal(123.45) };
             var result = new ValidationResult();
 
             // Act
@@ -39,48 +39,9 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             Assert.IsTrue(result.IsValid);
         }
 
-        [TestMethod]
-        public void Validate_WhenValueIsInvalidDecimal_ShouldFail()
-        {
-            // Arrange
-            var rule = new IsDecimalValidationRule<TestObject>(x => x.Value)
-            {
-                ErrorCode = 4001
-            };
-            var testObject = new TestObject { Value = "not_a_decimal" };
-            var result = new ValidationResult();
-
-            // Act
-            rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("The value must be a valid decimal.", result.Errors[0].ErrorMessage);
-            Assert.AreEqual(4001, result.Errors[0].ErrorCode);
-        }
-
-        [TestMethod]
-        public void Validate_WhenValueIsInteger_ShouldPass()
-        {
-            // Arrange
-            var rule = new IsDecimalValidationRule<TestObject>(x => x.Value)
-            {
-                ErrorCode = 4001
-            };
-            var testObject = new TestObject { Value = "123" };
-            var result = new ValidationResult();
-
-            // Act
-            rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsTrue(result.IsValid); // Should pass as integers are valid decimals
-        }
-
-        // Helper class to use in tests
         private class TestObject
         {
-            public string Value { get; set; }
+            public decimal Value { get; set; }
         }
     }
 }

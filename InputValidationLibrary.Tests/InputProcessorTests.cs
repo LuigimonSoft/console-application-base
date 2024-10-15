@@ -98,17 +98,25 @@ namespace InputValidationLibrary.Tests
             {
                 new string[] { "John Doe", "", "5000.75", @"C:\Valid\Path\To\File.txt" },
                 false,
-                "Age must be between 18 and 65.",
-                1003,
+                "Age must be numeric",
+                1010,
                 "Age is empty"
             };
 
             yield return new object[]
             {
-                new string[] { "John Doe", "invalid", "5000.75", @"C:\Valid\Path\To\File.txt" },
+                new string[] { "John Doe", "80", "5000.75", @"C:\Valid\Path\To\File.txt" },
                 false,
                 "Age must be between 18 and 65.",
-                1003,
+                1004,
+                "Age is out of range"
+            };
+            yield return new object[]
+            {
+                new string[] { "John Doe", "invalid", "5000.75", @"C:\Valid\Path\To\File.txt" },
+                false,
+                "Age must be numeric",
+                1010,
                 "Age is invalid"
             };
 
@@ -117,7 +125,7 @@ namespace InputValidationLibrary.Tests
                 new string[] { "John Doe", "30", "invalid_decimal", @"C:\Valid\Path\To\File.txt" },
                 false,
                 "Salary must be a valid decimal.",
-                1005,
+                1006,
                 "Salary is not decimal"
             };
 
@@ -126,7 +134,7 @@ namespace InputValidationLibrary.Tests
                 new string[] { "John Doe", "30", "5000.75", @"Invalid|Path\To\File.txt" },
                 false,
                 "File path must be a valid path.",
-                1008,
+                1009,
                 "FilePath contains invalid characters"
             };
 
@@ -135,7 +143,7 @@ namespace InputValidationLibrary.Tests
                 new string[] { "John Doe", "30", "5000.75", null },
                 false,
                 "File path must not be null.",
-                1006,
+                1007,
                 "FilePath is null"
             };
 
@@ -144,7 +152,7 @@ namespace InputValidationLibrary.Tests
                 new string[] { "John Doe", "30", "5000.75", "" },
                 false,
                 "File path must not be empty.",
-                1007,
+                1008,
                 "FilePath is empty"
             };
         }

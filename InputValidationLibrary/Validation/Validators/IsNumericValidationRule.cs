@@ -4,31 +4,43 @@ using InputValidationLibrary.Validation.ErrorMessages;
 
 namespace InputValidationLibrary.Validation.Validators
 {
-  public class IsNumericValidationRule<T> : IValidationRule<T>
-  {
-    private readonly Func<T, object> _property;
-    public int? ErrorCode { get; set; }
-
-    public IsNumericValidationRule(Func<T, object> property)
+    public class IsNumericValidationRule<T> : IValidationRule<T>
     {
-      _property = property;
-    }
+        private readonly Func<T, int> _property;
+        public int? ErrorCode { get; set; }
 
-    public void Validate(T entity, ValidationResult result)
-    {
-      var value = _property(entity)?.ToString();
-      if (value != null && !int .TryParse(value, out _))
-      {
-        if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
+        public IsNumericValidationRule(Func<T, int> property)
         {
-          result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = erroMessage });
+            _property = property;
         }
-        else
+
+        public void Validate(T entity, ValidationResult result)
         {
-          result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = "The value must be numeric." });
+            var value = _property(entity).ToString();
+            if (value != null && !int.TryParse(value, out _))
+            {
+                if (ErrorCode.HasValue && ErrorMessageStore.Messages.TryGetValue(ErrorCode.Value, out var erroMessage))
+                {
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = erroMessage });
+                }
+                else
+                {
+                    result.AddError(new Error() { ErrorCode = ErrorCode.Value, ErrorMessage = "The value must be numeric." });
+                }
+
+            }
         }
-        
-      }
+
+        public void ValidateValue(string value, ValidationResult result)
+        {
+            if (!int.TryParse(value, out _))
+            {
+                result.AddError(new Error()
+                {
+                    ErrorCode = ErrorCode ?? 0,
+                    ErrorMessage = ErrorMessageStore.GetMessage(ErrorCode ?? 0)
+                });
+            }
+        }
     }
-  }
 }

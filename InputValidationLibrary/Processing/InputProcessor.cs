@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using InputValidationLibrary.Mapping;
 using InputValidationLibrary.Validation;
-using InputValidationLibrary.Validation.Validators;
 using InputValidationLibrary.Validation.ErrorMessages;
 using InputValidationLibrary.Validation.Interfaces;
 using ConsoleBase.Common.Attributes;
+using InputValidationLibrary.Validation.Validators;
 
 namespace InputValidationLibrary.Processing
 {
@@ -38,7 +38,7 @@ namespace InputValidationLibrary.Processing
             catch (Exception ex)
             {
                 var result = new ValidationResult();
-                result.AddError(new Error() { ErrorCode = 0, ErrorMessage = $"Mapping error: {ex.Message}" });
+                result.AddError(new Error() { ErrorCode = 0, ErrorMessage = $"Error when mapping: {ex.Message}" });
                 return result;
             }
         }
@@ -60,62 +60,18 @@ namespace InputValidationLibrary.Processing
                     validationResult.AddError(new Error()
                     {
                         ErrorCode = 0,
-                        ErrorMessage = $"Missing input parameter at position {position} for property '{prop.Name}'."
+                        ErrorMessage = $"The input parameter at position {position} is missing for the property '{prop.Name}'."
                     });
                     continue;
                 }
 
                 var parameterValue = parameters[position];
 
-                
-                var rules = (_validator as AbstractValidator<T>).GetRulesForProperty(prop.Name);
+                var rules = (_validator as AbstractValidator<T>).GetRulesForPosition(position);
 
                 foreach (var rule in rules)
                 {
-                    
-                    switch (rule)
-                    {
-                        case NotEmptyValidationRule<T> notEmptyRule:
-                            if (string.IsNullOrWhiteSpace(parameterValue))
-                            {
-                                validationResult.AddError(new Error()
-                                {
-                                    ErrorCode = notEmptyRule.ErrorCode ?? 0,
-                                    ErrorMessage = ErrorMessageStore.GetMessage(notEmptyRule.ErrorCode ?? 0)
-                                });
-                            }
-                            break;
-
-                        case IsNumericValidationRule<T> isNumericRule:
-                            if (!int.TryParse(parameterValue, out _))
-                            {
-                                validationResult.AddError(new Error()
-                                {
-                                    ErrorCode = isNumericRule.ErrorCode ?? 0,
-                                    ErrorMessage = ErrorMessageStore.GetMessage(isNumericRule.ErrorCode ?? 0)
-                                });
-                            }
-                            break;
-
-                        case IsDecimalValidationRule<T> isDecimalRule:
-                            if (!decimal.TryParse(parameterValue, out _))
-                            {
-                                validationResult.AddError(new Error()
-                                {
-                                    ErrorCode = isDecimalRule.ErrorCode ?? 0,
-                                    ErrorMessage = ErrorMessageStore.GetMessage(isDecimalRule.ErrorCode ?? 0)
-                                });
-                            }
-                            break;
-
-                        
-                    }
-
-                    
-                    if (!validationResult.IsValid)
-                    {
-                        break;
-                    }
+                    rule.ValidateValue(parameterValue, validationResult);
                 }
             }
 

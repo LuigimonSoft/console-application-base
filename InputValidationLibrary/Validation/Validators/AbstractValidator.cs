@@ -1,52 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
 using InputValidationLibrary.Validation.Interfaces;
+using ConsoleBase.Common.Attributes;
 
 namespace InputValidationLibrary.Validation.Validators
 {
     public abstract class AbstractValidator<T> : IValidator<T>
     {
-        protected readonly List<IValidationRule<T>> _rules = new List<IValidationRule<T>>();
-        private readonly Dictionary<string, List<IValidationRule<T>>> _propertyRules = new Dictionary<string, List<IValidationRule<T>>>();
+        private readonly Dictionary<int, List<IValidationRule<T>>> _positionRules = new Dictionary<int, List<IValidationRule<T>>>();
+
         public ValidationResult Validate(T instance)
         {
             var result = new ValidationResult();
 
-            foreach (var rule in _rules)
+            foreach (var rules in _positionRules.Values)
             {
-                rule.Validate(instance, result);
+                foreach (var rule in rules)
+                {
+                    rule.Validate(instance, result);
+                }
             }
 
             return result;
         }
 
-        protected RuleBuilder<T, TProperty> RuleFor<TProperty>(Func<T, TProperty> property, string propertyName)
+        protected RuleBuilder<T, TProperty> RuleFor<TProperty>(Expression<Func<T, TProperty>> propertyExpression)
         {
-            return new RuleBuilder<T, TProperty>(this, property, propertyName);
-        }
-
-        public void AddRule(IValidationRule<T> rule, string propertyName)
-        {
-            _rules.Add(rule);
-            if (!_propertyRules.ContainsKey(propertyName))
+            var memberExpression = propertyExpression.Body as MemberExpression;
+            if (memberExpression == null)
             {
-                _propertyRules[propertyName] = new List<IValidationRule<T>>();
+                throw new ArgumentException("The expression of ownership is not valid");
             }
-            _propertyRules[propertyName].Add(rule);
-        }
 
-        public IValidationRule<T> GetLastRule()
-        {
-            if (_rules.Count == 0)
+            var propertyInfo = typeof(T).GetProperty(memberExpression.Member.Name);
+            var columnAttribute = propertyInfo.GetCustomAttribute<ColumnAttribute>();
+
+            if (columnAttribute == null)
             {
-                throw new InvalidOperationException("No rules have been added yet.");
+                throw new InvalidOperationException($"The property '{propertyInfo.Name}' does not have a ColumnAttribute attribute.");
             }
-            return _rules[^1];
+
+            return new RuleBuilder<T, TProperty>(this, propertyExpression.Compile(), columnAttribute.Position);
         }
 
-        public IEnumerable<IValidationRule<T>> GetRulesForProperty(string propertyName)
+        public void AddRule(IValidationRule<T> rule, int position)
         {
-            return _propertyRules.ContainsKey(propertyName) ? _propertyRules[propertyName] : new List<IValidationRule<T>>();
+            if (!_positionRules.ContainsKey(position))
+            {
+                _positionRules[position] = new List<IValidationRule<T>>();
+            }
+            _positionRules[position].Add(rule);
+        }
+
+        public IEnumerable<IValidationRule<T>> GetRulesForPosition(int position)
+        {
+            return _positionRules.ContainsKey(position) ? _positionRules[position] : Enumerable.Empty<IValidationRule<T>>();
         }
     }
 }

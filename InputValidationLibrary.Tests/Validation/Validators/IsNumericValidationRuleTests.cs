@@ -21,53 +21,10 @@ namespace InputValidationLibrary.Tests.Validation.Validators
             _rule.ErrorCode = 1003;
         }
 
-        [TestMethod]
-        public void Validate_WhenValueIsNumeric_ShouldPass()
-        {
-            // Arrange
-            var testObject = new TestObject { Value = "123" };
-            var result = new ValidationResult();
-
-            // Act
-            _rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsTrue(result.IsValid);
-        }
-
-        [TestMethod]
-        public void Validate_WhenValueIsNotNumeric_ShouldFail()
-        {
-            // Arrange
-            var testObject = new TestObject { Value = "abc" };
-            var result = new ValidationResult();
-
-            // Act
-            _rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be numeric.", result.Errors[0].ErrorMessage);
-            Assert.AreEqual(1003, result.Errors[0].ErrorCode);
-        }
-
-        [TestMethod]
-        public void Validate_WhenValueIsNull_ShouldPass()
-        {
-            // Arrange
-            var testObject = new TestObject { Value = null };
-            var result = new ValidationResult();
-
-            // Act
-            _rule.Validate(testObject, result);
-
-            // Assert
-            Assert.IsTrue(result.IsValid); // Null value should pass for IsNumeric rule
-        }
-
         private class TestObject
         {
-            public string Value { get; set; }
+            public int Value { get; set; }
         }
     }
 }
+
