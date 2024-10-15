@@ -55,7 +55,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be within the specified range.", result.Errors[0]);
+            Assert.AreEqual("Value must be within the specified range.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(3001, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]
@@ -74,7 +75,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be within the specified range.", result.Errors[0]);
+            Assert.AreEqual("Value must be within the specified range.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(3001, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]
@@ -149,7 +151,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be within the specified range.", result.Errors[0]);
+            Assert.AreEqual("Value must be within the specified range.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(3001, result.Errors[0].ErrorCode);
         }
 
         // Helper class to use in tests

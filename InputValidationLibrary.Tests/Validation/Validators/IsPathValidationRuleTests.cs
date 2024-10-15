@@ -76,7 +76,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be a valid path.", result.Errors[0]);
+            Assert.AreEqual("Value must be a valid path.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(1007, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]
@@ -91,7 +92,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be a valid path.", result.Errors[0]);
+            Assert.AreEqual("Value must be a valid path.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(1007, result.Errors[0].ErrorCode);
         }
 
         private class TestObject

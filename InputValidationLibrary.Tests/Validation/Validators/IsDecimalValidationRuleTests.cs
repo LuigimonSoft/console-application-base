@@ -55,7 +55,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("The value must be a valid decimal.", result.Errors[0]);
+            Assert.AreEqual("The value must be a valid decimal.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(4001, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]

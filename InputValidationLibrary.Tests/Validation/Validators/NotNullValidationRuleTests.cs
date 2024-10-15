@@ -47,7 +47,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value cannot be null.", result.Errors[0]);
+            Assert.AreEqual("Value cannot be null.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(1001, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]
@@ -63,7 +64,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("The value cannot be null.", result.Errors[0]);
+            Assert.AreEqual("The value cannot be null.", result.Errors[0].ErrorMessage);
+            assert.AreEqual(9999, result.Errors[0].ErrorCode);
         }
 
         private class TestObject

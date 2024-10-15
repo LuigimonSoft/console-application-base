@@ -47,7 +47,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Length must be between 1 and 5 characters.", result.Errors[0]);
+            Assert.AreEqual("Length must be between 1 and 5 characters.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(1005, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]
@@ -62,7 +63,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Length must be between 1 and 5 characters.", result.Errors[0]);
+            Assert.AreEqual("Length must be between 1 and 5 characters.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(1005, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]

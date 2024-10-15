@@ -47,7 +47,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Value must be numeric.", result.Errors[0]);
+            Assert.AreEqual("Value must be numeric.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(1003, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]

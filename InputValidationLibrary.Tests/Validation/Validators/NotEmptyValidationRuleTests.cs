@@ -55,7 +55,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("The value must not be empty or consist solely of whitespace.", result.Errors[0]);
+            Assert.AreEqual("The value must not be empty or consist solely of whitespace.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(5001, result.Errors[0].ErrorCode);
         }
 
         [TestMethod]
@@ -74,7 +75,8 @@ namespace InputValidationLibrary.Tests.Validation.Validators
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("The value must not be empty or consist solely of whitespace.", result.Errors[0]);
+            Assert.AreEqual("The value must not be empty or consist solely of whitespace.", result.Errors[0].ErrorMessage);
+            Assert.AreEqual(5001, result.Errors[0].ErrorCode);
         }
 
         private class TestObject
