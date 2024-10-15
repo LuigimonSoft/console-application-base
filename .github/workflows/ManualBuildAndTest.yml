@@ -35,9 +35,16 @@ jobs:
 
     - name: Install jq
       run: sudo apt-get install jq
-      
+
+    - name: Verify coverage output exists
+      run: |
+        if [ ! -f "./coverage/coverage.json" ]; then
+          echo "Coverage file not found!"
+          exit 1
+        fi
+
     - name: Get coverage percentage
       run: |
-        COVERAGE_PERCENTAGE=$(cat ./coverage/coverage.json | jq '.line | .coveragePercent')
+        COVERAGE_PERCENTAGE=$(cat ./coverage/coverage.json | jq '.summary.line | .percent')
         echo "Coverage Percentage: ${COVERAGE_PERCENTAGE}%"
       shell: bash
