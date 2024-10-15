@@ -49,7 +49,7 @@ namespace InputValidationLibrary.Processing
         {
             var validationResult = new ValidationResult();
             var properties = typeof(T).GetProperties();
-            
+
             foreach (var prop in properties)
             {
                 var columnAttr = prop.GetCustomAttribute<ColumnAttribute>();
@@ -70,7 +70,7 @@ namespace InputValidationLibrary.Processing
                 var parameterValue = parameters[position];
 
                 // Extract the rules defined for the property
-                var rules = _validator.GetRulesForProperty(prop.Name);
+                var rules = (_validator as AbstractValidator<T>).GetRulesForProperty(prop.Name);
 
                 foreach (var rule in rules)
                 {
@@ -87,7 +87,7 @@ namespace InputValidationLibrary.Processing
                                 });
                             }
                             break;
-                        
+
                         case IsNumericValidationRule<T> isNumericRule:
                             if (!int.TryParse(parameterValue, out _))
                             {
@@ -110,10 +110,10 @@ namespace InputValidationLibrary.Processing
                             }
                             break;
 
-                        // Add more cases if needed for other rules...
+                        
                     }
 
-                    // If an error has already been added for this property, break out of the loop
+                    
                     if (!validationResult.IsValid)
                     {
                         break;
