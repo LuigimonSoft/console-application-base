@@ -38,5 +38,10 @@ namespace InputValidationLibrary.Validation.Validators
             }
             return _rules[^1];
         }
+
+        public IEnumerable<IValidationRule<T>> GetRulesForProperty(string propertyName)
+        {
+            return _rules.Where(r => r.PropertyName == propertyName);
+        }
     }
 }
