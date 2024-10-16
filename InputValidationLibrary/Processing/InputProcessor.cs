@@ -53,21 +53,21 @@ namespace InputValidationLibrary.Processing
                 var columnAttr = prop.GetCustomAttribute<ColumnAttribute>();
                 if (columnAttr == null) continue;
 
-                var position = columnAttr.Position;
+                var index = columnAttr.Index;
 
-                if (position >= parameters.Length)
+                if (index >= parameters.Length)
                 {
                     validationResult.AddError(new Error()
                     {
                         ErrorCode = 0,
-                        ErrorMessage = $"The input parameter at position {position} is missing for the property '{prop.Name}'."
+                        ErrorMessage = $"The input parameter at index {index} is missing for the property '{prop.Name}'."
                     });
                     continue;
                 }
 
-                var parameterValue = parameters[position];
+                var parameterValue = parameters[index];
 
-                var rules = (_validator as AbstractValidator<T>).GetRulesForPosition(position);
+                var rules = (_validator as AbstractValidator<T>).GetRulesForPosition(index);
 
                 foreach (var rule in rules)
                 {

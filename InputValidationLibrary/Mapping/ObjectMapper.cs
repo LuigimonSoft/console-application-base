@@ -16,11 +16,11 @@ namespace InputValidationLibrary.Mapping
                 var columnAttr = prop.GetCustomAttribute<ColumnAttribute>();
                 if (columnAttr != null)
                 {
-                    var position = columnAttr.Position;
+                    var index = columnAttr.Index;
 
                     if (position < parameters.Length)
                     {
-                        var parameterValue = parameters[position];
+                        var parameterValue = parameters[index];
                         try
                         {
                             var convertedValue = Convert.ChangeType(parameterValue, prop.PropertyType);
