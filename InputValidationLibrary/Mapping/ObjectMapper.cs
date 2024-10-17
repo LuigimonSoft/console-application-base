@@ -18,7 +18,7 @@ namespace InputValidationLibrary.Mapping
                 {
                     var index = columnAttr.Index;
 
-                    if (position < parameters.Length)
+                    if (index < parameters.Length)
                     {
                         var parameterValue = parameters[index];
                         try

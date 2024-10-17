@@ -42,7 +42,7 @@ namespace InputValidationLibrary.Validation.Validators
                 throw new InvalidOperationException($"The property '{propertyInfo.Name}' does not have a ColumnAttribute attribute.");
             }
 
-            return new RuleBuilder<T, TProperty>(this, propertyExpression.Compile(), columnAttribute.Position);
+            return new RuleBuilder<T, TProperty>(this, propertyExpression.Compile(), columnAttribute.Index);
         }
 
         public void AddRule(IValidationRule<T> rule, int position)

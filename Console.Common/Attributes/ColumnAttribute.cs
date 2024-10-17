@@ -9,11 +9,11 @@ namespace ConsoleBase.Common.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class ColumnAttribute : Attribute
     {
-        public int _index { get; }
+        public int Index { get; }
 
         public ColumnAttribute(int index)
         {
-            _index = index;
+            Index = index;
         }
     }
 }
