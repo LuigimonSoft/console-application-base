@@ -1,5 +1,5 @@
 using InputValidationLibrary.Validation;
-using ConsoleBase.Models;
+using ConsoleBase.Core.Models;
 using InputValidationLibrary.Validation.Validators;
 
 namespace ConsoleBase.Validators

@@ -1,7 +1,7 @@
 ﻿using System;
 using ConsoleBase.Validators;
 using InputValidationLibrary.Processing;
-using InputValidationLibrary.Validators;
+using InputValidationLibrary.Validation.Validators;
 
 namespace ConsoleBase.Core
 {

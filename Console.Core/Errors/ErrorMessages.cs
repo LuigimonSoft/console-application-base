@@ -1,4 +1,4 @@
-
+using System.Collections.Generic;
 public static class ErrorMessages
 {
     public static dictionary<string, string> ErrorList = new Dictionary<string, string>
