@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 public static class ErrorMessages
 {
-    public static dictionary<string, string> ErrorList = new Dictionary<string, string>
+    public static Dictionary<string, string> ErrorList = new Dictionary<string, string>
     {
         { 1001, "Name must not be null." },
         { 1002, "Name must not be empty." },
