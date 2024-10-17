@@ -2,6 +2,7 @@
 using ConsoleBase.Validators;
 using InputValidationLibrary.Processing;
 using InputValidationLibrary.Validation.Validators;
+using ConsoleBase.Core.Models;
 
 namespace ConsoleBase.Core
 {
